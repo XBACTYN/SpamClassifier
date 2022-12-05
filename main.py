@@ -1,4 +1,4 @@
-import lr as lr
+
 import nltk
 #Запустить единожды
 #nltk.download('punkt')
@@ -57,21 +57,16 @@ def calc_confusion_matrix(fact, predict):
     return confusion_matrix
 
 
-def get_classes(probs, d):
-    classes = []
-    for p in probs:
-        if p[0] >= d:
-            classes.append(0)
-        else:
-            classes.append(1)
-    return np.array(classes)
-
 def report(confusion):
-    #Precison - правильно классифицированные тру
+    #Precison - правильно классифицированные ham(1)
     precision = confusion['TP']/(confusion['TP']+confusion['FP'])
-    #Доля правильно классифицированных из класса тру
+    #Доля найденных ham
     recall = confusion['TP']/(confusion['TP']+confusion['FN'])
     return precision,recall
+
+def F_measure(precision,recall,beta):
+    F = (1+beta**2)*(precision*recall)/((precision*beta**2)+recall)
+    return F
 
 if __name__ == '__main__':
     path = "src/spam.csv"
@@ -111,7 +106,11 @@ if __name__ == '__main__':
           f"FN: {confusion['FN']}\t\t|\tTN: {confusion['TN']}\n")
 
     precision, recall = report(confusion)
-
-    print(f"Точность:\t{precision}\nПолнота:\t{recall}")
+    beta =1 #Вес точности
+    F = F_measure(precision,recall,beta)
+    print("Precision -  Процент истинных ham в проклассифицированных ham")
+    print("Recall    -  Процент  правильно проклассифицированных ham из всех ham")
+    print("F-мера    -  Среднее гармоническое (мера точности)")
+    print(f"Precision:\t{precision*100}%\nRecall:\t{recall*100}%\nF-мера:\t{F*100}%")
 
 

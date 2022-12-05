@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SpamClassfier.iml" filepath="$PROJECT_DIR$/.idea/SpamClassfier.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SpamClassifier.iml" filepath="$PROJECT_DIR$/.idea/SpamClassifier.iml" />
     </modules>
   </component>
 </project>
